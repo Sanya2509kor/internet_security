@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>{% block title %}КиберБезопасность{% endblock %}</title>
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -11,7 +11,16 @@
   <header class="header">
     <div class="container nav">
       <a href="{% url 'home' %}" class="logo">🛡️ КиберБезопасность</a>
-      <nav>
+      
+      <!-- Кнопка бургера (видна только на телефоне) -->
+      <button class="burger" id="burger" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Меню -->
+      <nav id="main-nav">
         <a href="{% url 'home' %}">Главная</a>
         <a href="{% url 'quest_list' %}">Квесты</a>
         <a href="{% url 'quiz' %}">Тест</a>
@@ -30,6 +39,17 @@
     </div>
   </footer>
 
+  <script>
+    // Логика бургер-меню
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('main-nav');
+    if (burger) {
+      burger.addEventListener('click', () => {
+        nav.classList.toggle('open');
+        burger.classList.toggle('active');
+      });
+    }
+  </script>
   {% block scripts %}{% endblock %}
 </body>
 </html>
