@@ -46,6 +46,10 @@ class QuizQuestion(models.Model):
     question = models.CharField('Вопрос', max_length=300)
     explanation = models.TextField('Объяснение после ответа', blank=True)
 
+    class Meta:
+        verbose_name = 'Вопрос'
+        verbose_name_plural = 'Вопросы'
+            
     def __str__(self):
         return self.question
 
