@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Тест: насколько ты защищён?{% endblock %}
+
+{% block content %}
+<section class="container quiz-wrap">
+  <h1>🧠 Проверь себя</h1>
+  <p class="lead">Ответь на вопросы и узнай, готов ли ты к опасностям интернета.</p>
+
+  <form id="quiz-form">
+    {% for q in questions %}
+    <div class="quiz-item" data-correct="{{ q.correct_index }}">
+      <p class="question">{{ forloop.counter }}. {{ q.question }}</p>
+      <div class="answers">
+        {% for a in q.answers %}
+        <label class="answer">
+          <input type="radio" name="q{{ q.id }}" value="{{ forloop.counter0 }}">
+          <span>{{ a.text }}</span>
+        </label>
+        {% endfor %}
+      </div>
+      {% if q.explanation %}
+      <p class="explanation" hidden>💡 {{ q.explanation }}</p>
+      {% endif %}
+    </div>
+    {% empty %}
+    <p class="empty">Вопросы ещё не добавлены. Зайди в админку!</p>
+    {% endfor %}
+    {% if questions %}
+    <button type="submit" class="btn">Проверить</button>
+    {% endif %}
+  </form>
+
+  <div id="result" class="result" hidden></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/quiz.js' %}"></script>
+{% endblock %}

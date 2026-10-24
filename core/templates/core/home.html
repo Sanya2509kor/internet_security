@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% block title %}КиберБезопасность — просто о важном{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>Безопасность в интернете —<br><span class="gradient">просто и понятно</span></h1>
+    <p class="lead">
+      Узнай, как защитить себя и близких от мошенников, опасных звонков,
+      игровых ловушек и хитрых сообщений.
+    </p>
+    <a href="{% url 'quiz' %}" class="btn">Пройти тест →</a>
+  </div>
+</section>
+
+<section class="container quests-section">
+  <div class="quests-banner">
+    <div>
+      <h2>🎮 Попробуй интерактивный квест</h2>
+      <p class="lead">Тебе пишет незнакомец... Что ты сделаешь? Проверь себя!</p>
+    </div>
+    <a href="{% url 'quest_list' %}" class="btn">Начать →</a>
+  </div>
+</section>
+
+<section class="container sections">
+  <h2>Что ты хочешь узнать?</h2>
+  <div class="grid">
+    {% for s in sections %}
+    <a href="{{ s.get_absolute_url }}" class="card" style="--accent: {{ s.color }}">
+      <div class="card-icon">{{ s.icon }}</div>
+      <h3>{{ s.title }}</h3>
+      <p>{{ s.short_description }}</p>
+      <span class="card-link">Узнать больше →</span>
+    </a>
+    {% empty %}
+    <p class="empty">Разделы скоро появятся. Зайди в админку и добавь их!</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

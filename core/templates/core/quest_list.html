@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+{% block title %}Квесты — КиберБезопасность{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>🎮 Интерактивные <span class="gradient">квесты</span></h1>
+    <p class="lead">Пройди ситуацию, сделай выбор и узнай, к чему он приведёт.</p>
+  </div>
+</section>
+
+<section class="container sections">
+  <div class="grid">
+    {% for q in quests %}
+    <a href="{{ q.get_absolute_url }}" class="card" style="--accent: {{ q.color }}">
+      <div class="card-icon">{{ q.icon }}</div>
+      <h3>{{ q.title }}</h3>
+      <p>{{ q.description }}</p>
+      <span class="card-link">Пройти квест →</span>
+    </a>
+    {% empty %}
+    <p class="empty">Квесты скоро появятся.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

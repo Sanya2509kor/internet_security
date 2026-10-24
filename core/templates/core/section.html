@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+<section class="section-header" style="--accent: {{ section.color }}">
+  <div class="container">
+    <a href="{% url 'home' %}" class="back">← Назад</a>
+    <div class="big-icon">{{ section.icon }}</div>
+    <h1>{{ section.title }}</h1>
+    <p class="lead">{{ section.short_description }}</p>
+  </div>
+</section>
+
+<section class="container articles">
+  {% for a in articles %}
+  <article class="article">
+    {% if a.image %}
+      <img src="{{ a.image.url }}" alt="{{ a.title }}">
+    {% endif %}
+    <h2>{{ a.title }}</h2>
+    <div class="content">{{ a.content|safe }}</div>
+  </article>
+  {% empty %}
+  <p class="empty">Статьи скоро появятся.</p>
+  {% endfor %}
+</section>
+{% endblock %}

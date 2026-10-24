@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}КиберБезопасность{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a href="{% url 'home' %}" class="logo">🛡️ КиберБезопасность</a>
+      <nav>
+        <a href="{% url 'home' %}">Главная</a>
+        <a href="{% url 'quest_list' %}">Квесты</a>
+        <a href="{% url 'quiz' %}">Тест</a>
+        <a href="/admin/">Админ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>🛡️ Учись безопасности в интернете — это важно для детей и взрослых</p>
+      <p class="small">Если тебе угрожают в интернете — расскажи родителям или позвони 8-800-2000-122 (детский телефон доверия)</p>
+    </div>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

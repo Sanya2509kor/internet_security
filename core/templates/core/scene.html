@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{ scene.title }} — {{ quest.title }}{% endblock %}
+
+{% block content %}
+<section class="container quest-scene">
+  <div class="quest-header">
+    <a href="{% url 'quest_list' %}" class="back">← Все квесты</a>
+    <span class="quest-label">{{ quest.icon }} {{ quest.title }}</span>
+  </div>
+
+  <div class="scene-card">
+    <h1 class="scene-title">{{ scene.title }}</h1>
+
+    <div class="scene-text">{{ scene.text|safe }}</div>
+
+    {% if scene.is_ending %}
+      <div class="ending ending-{{ scene.ending_type }}">
+        {% if scene.ending_type == 'good' %}
+          <div class="ending-emoji">🎉</div>
+          <h2>Отличный финал!</h2>
+          <p>Ты поступил правильно. Так держать!</p>
+        {% elif scene.ending_type == 'bad' %}
+          <div class="ending-emoji">💔</div>
+          <h2>Плохой финал</h2>
+          <p>Так делать не стоит. Давай попробуем ещё раз?</p>
+        {% else %}
+          <div class="ending-emoji">🤔</div>
+          <h2>Нейтральный финал</h2>
+          <p>Можно было бы поступить лучше.</p>
+        {% endif %}
+      </div>
+
+      <div class="scene-actions">
+        <a href="{{ quest.get_absolute_url }}" class="btn">🔄 Пройти заново</a>
+        <a href="{% url 'quest_list' %}" class="btn btn-secondary">К другим квестам</a>
+      </div>
+
+    {% else %}
+      
+      <div class="choices">
+        {% for c in scene.choices.all %}
+          <a href="{% url 'quest_scene' quest.slug c.next_scene.id %}" class="choice">
+            <span class="choice-arrow">→</span>
+            <span>{{ c.text }}</span>
+          </a>
+        {% empty %}
+          <p class="empty">В этой сцене нет выборов. Добавь их в админке.</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
